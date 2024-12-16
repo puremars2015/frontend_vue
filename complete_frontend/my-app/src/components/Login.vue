@@ -6,11 +6,11 @@
             <form>
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username">
+                    <input type="text" v-model="username" placeholder="Enter your username">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password">
+                    <input type="password" v-model="password" placeholder="Enter your password">
                 </div>
                 <button type="submit" class="login-button" @click="login()">Login</button>
             </form>
@@ -24,15 +24,24 @@
 export default {
     name: 'TheLogin',
     // 當按下登入按鈕時，會觸發這個方法
+    data() {
+        return {
+            username: '',
+            password: ''
+        };
+    },
     methods: {
         login() {
         // 取得使用者輸入的帳號密碼
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const username = this.username;
+        const password = this.password;
         // 假設帳號密碼都是 admin
         if (username === 'admin' && password === 'admin') {
             // 登入成功
             alert('Login success');
+            
+            // 導向main-page
+            this.$router.push('/main-page');
         } else {
             // 登入失敗
             alert('Login failed');
