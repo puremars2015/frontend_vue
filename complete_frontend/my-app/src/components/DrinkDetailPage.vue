@@ -48,6 +48,8 @@
   </template>
   
   <script>
+import { orderService } from '@/service/orderService';
+
   export default {
     name: 'DrinkDetailPage',
     data() {
@@ -72,123 +74,170 @@
         return images[drinkName] || 'https://example.com/default_drink.jpg';
       },
       goToConfirmOrder() {
-        // 導向確認訂單頁面，傳遞訂單資訊
-        this.$router.push({
-          name: 'ConfirmOrder',
-          query: {
-            name: this.drinkName,
-            sugar: this.orderDetails.sugar,
-            ice: this.orderDetails.ice,
-            quantity: this.orderDetails.quantity,
-          },
-        });
+        this.saveOrder();
+
+        // 回到DrinksPage
+        this.$router.push('/drinks-page');
       },
+      saveOrder() {
+        orderService.saveOrder(
+            { 
+                name: this.drinkName, 
+                sugar: this.orderDetails.sugar, 
+                ice: this.orderDetails.ice, 
+                quantity: this.orderDetails.quantity 
+            }
+        );
+      }
     },
   };
   </script>
-  
   <style scoped>
- .body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #1e1e2f, #2d2d4a);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+  .body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* 手寫風格字體 */
+    background: linear-gradient(135deg, #fff7da, #ffe8e8); /* 柔和漸層背景 */
+    color: #4a4a4a; /* 溫暖的文字顏色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .details-container {
+    display: flex;
+    background: #ffffff; /* 卡片背景 */
+    border: 2px solid #fab1a0; /* 粉色邊框 */
+    border-radius: 15px;
+    padding: 25px;
+    width: 800px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 輕微陰影 */
+  }
+  
+  .drink-image-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+  }
+  
+  .drink-image {
+    width: 100%;
+    max-width: 200px; /* 增加圖片大小 */
+    border-radius: 15px; /* 圓潤圖片 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 柔和陰影 */
+  }
+  
+  .order-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .details-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #ff7675; /* 粉色標題文字 */
+    border-bottom: 2px dashed #fab1a0; /* 虛線分隔符 */
+    padding-bottom: 10px;
+  }
+  
+  .drink-name {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #4a4a4a; /* 默認文字顏色 */
+  }
+  
+  .order-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color: #4a4a4a; /* 字體顏色 */
+  }
+  
+  select,
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #fab1a0; /* 粉色邊框 */
+    border-radius: 10px; /* 圓角設計 */
+    background: #fffaec; /* 柔和奶油背景 */
+    color: #4a4a4a; /* 文字顏色 */
+    transition: border-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  select:focus,
+  input:focus {
+    border-color: #ff7675; /* 焦點變為粉紅 */
+    transform: scale(1.02); /* 輕微放大 */
+  }
+  
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  
+  .submit-button {
+    background: linear-gradient(to right, #81ecec, #74b9ff); /* 飲料店風漸層按鈕 */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .submit-button:hover {
+    background: linear-gradient(to right, #74b9ff, #81ecec); /* 懸停漸層方向改變 */
+    transform: translateY(-2px); /* 懸停時輕微上移 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 提升按鈕層次 */
+  }
 
-.details-container {
-  display: flex;
-  background: #1a1a2e;
-  border: 2px solid #4db6e5;
-  border-radius: 10px;
-  padding: 20px;
-  width: 800px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+  select,
+  input {
+    width: 100%; /* 設置寬度一致 */
+    padding: 10px; /* 統一內邊距 */
+    font-size: 14px; /* 統一字體大小 */
+    border: 2px solid #fab1a0; /* 粉色邊框 */
+    border-radius: 10px; /* 圓角設計 */
+    background: #fffaec; /* 柔和奶油背景 */
+    color: #4a4a4a; /* 文字顏色 */
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    box-sizing: border-box; /* 確保內邊距不影響寬度 */
+  }
 
-.drink-image-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-right: 20px;
-}
+  select:focus,
+  input:focus {
+    border-color: #ff7675; /* 焦點變為粉紅 */
+    transform: scale(1.02); /* 輕微放大 */
+  }
 
-.drink-image {
-  width: 100%;
-  max-width: 150px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* 隱藏數字輸入的微調按鈕 */
+  }
 
-.order-section {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-}
+  .form-group {
+    margin-bottom: 15px;
+  }
 
-.details-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #4db6e5;
-  border-bottom: 2px solid #4db6e5;
-  padding-bottom: 10px;
-}
-
-.drink-name {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.order-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  display: block;
-}
-
-select,
-input {
-  width: 100%;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #4db6e5;
-  border-radius: 5px;
-  background: #2a2a45;
-  color: #fff;
-}
-
-input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-.submit-button {
-  background: #4db6e5;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.submit-button:hover {
-  background: #62c9f9;
-  color: #1a1a2e;
-}
+  label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+    color: #4a4a4a; /* 字體顏色 */
+  }
   </style>
   

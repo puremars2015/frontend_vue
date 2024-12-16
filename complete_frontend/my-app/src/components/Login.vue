@@ -53,72 +53,122 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #1a1a2e, #16213e);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-  }
- .login-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
+.body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* 友好的字體風格 */
+    background: linear-gradient(to bottom, #ffe8e8, #fff7da); /* 柔和的飲料店背景色 */
+    color: #4a4a4a; /* 溫暖的文字顏色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+    background: #ffffff; /* 卡片風格的背景 */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 淡淡的陰影效果 */
 }
 
 .login-box h1 {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
+    color: #ff7675; /* 帶有飲料感的粉色 */
 }
 
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-size: 0.9em;
-    color: #aaa;
+    color: #4a4a4a;
 }
 
 .input-group input {
     width: 100%;
-    max-width: 380px;
     padding: 10px;
     font-size: 1em;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    border: 2px solid #ffeaa7; /* 輕鬆的黃色邊框 */
+    border-radius: 12px; /* 圓潤的設計 */
+    background: #fffaf3; /* 柔和的背景色 */
+    color: #4a4a4a;
     outline: none;
+    transition: border-color 0.3s, transform 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #fab1a0; /* 焦點時的暖色變化 */
+    transform: scale(1.02); /* 微放大效果 */
 }
 
 .input-group input::placeholder {
-    color: #bbb;
+    color: #b2bec3;
 }
 
 .login-button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 1em;
-    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    background: linear-gradient(to right, #81ecec, #74b9ff); /* 飲料風的漸層色 */
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .login-button:hover {
-    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    background: linear-gradient(to right, #74b9ff, #81ecec);
+    transform: translateY(-2px); /* 按鈕懸停的輕微浮動效果 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* 提升按鈕層次 */
 }
+
+.input-group input {
+    width: 100%; /* 與按鈕寬度一致 */
+    padding: 12px; /* 與按鈕的內邊距一致 */
+    font-size: 1em;
+    border: 2px solid #ffeaa7; /* 輕鬆的黃色邊框 */
+    border-radius: 12px; /* 圓潤的設計，與按鈕一致 */
+    background: #fffaf3; /* 柔和的背景色 */
+    color: #4a4a4a;
+    outline: none;
+    transition: border-color 0.3s, transform 0.2s;
+    box-sizing: border-box; /* 確保內邊距不影響寬度 */
+}
+
+.input-group input:focus {
+    border-color: #fab1a0; /* 焦點時的暖色變化 */
+    transform: scale(1.02); /* 微放大效果 */
+}
+
+.input-group input::placeholder {
+    color: #b2bec3;
+}
+
+.login-button {
+    width: 100%; /* 與 input 保持一致 */
+    padding: 12px; /* 與 input 保持一致 */
+    font-size: 1em;
+    background: linear-gradient(to right, #81ecec, #74b9ff); /* 飲料風的漸層色 */
+    color: #fff;
+    border: none;
+    border-radius: 12px; /* 與 input 保持一致 */
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.login-button:hover {
+    background: linear-gradient(to right, #74b9ff, #81ecec);
+    transform: translateY(-2px); /* 按鈕懸停的輕微浮動效果 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* 提升按鈕層次 */
+}
+
 </style>

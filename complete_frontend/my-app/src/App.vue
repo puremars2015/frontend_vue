@@ -11,6 +11,6 @@ export default {
 <style>
   body {
       margin: 0;
-      background: linear-gradient(to bottom, #1a1a2e, #16213e);
+      /* background: linear-gradient(to bottom, #1a1a2e, #16213e); */
   }
 </style>

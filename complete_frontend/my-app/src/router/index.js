@@ -28,6 +28,11 @@ const routes = [
         component: DrinkDetailPage,
     },
     {
+        path: "/drink-detail-edit",
+        name: "DrinkDetailEditPage",
+        component: DrinkDetailPage,
+    },
+    {
         path: "/comfirm-order",
         name: "ConfirmOrder",
         component: ConfirmOrderPage,
