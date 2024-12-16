@@ -3,6 +3,7 @@ import Login from "@/components/Login.vue";
 import MainPage from "@/components/MainPage.vue";
 import DrinksPage from "@/components/DrinksPage.vue";
 import DrinkDetailPage from "@/components/DrinkDetailPage.vue";
+import DrinkDetailEditPage from "@/components/DrinkDetailEditPage.vue";
 import ConfirmOrderPage from "@/components/ConfirmOrderPage.vue";
 
 
@@ -30,7 +31,7 @@ const routes = [
     {
         path: "/drink-detail-edit",
         name: "DrinkDetailEditPage",
-        component: DrinkDetailPage,
+        component: DrinkDetailEditPage,
     },
     {
         path: "/comfirm-order",

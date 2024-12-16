@@ -44,21 +44,47 @@
 
 <script>
 import { orderService } from '@/service/orderService';
+import { onMounted } from 'vue';
 
 export default {
+    setup() {
+      onMounted(()=>{
+        this.initializeData();
+      });
+    },
     name: 'DrinkDetailEditPage',
     data() {
         return {
-            drinkName: this.getData(this.$route.query.index).name || '未知飲料',
-            drinkImage: this.getDrinkImage(this.$route.query.name),
+            drinkName: '',
+            drinkImage: '',
             orderDetails: {
-                sugar: this.getData(this.$route.query.index).sugar,
-                ice: this.getData(this.$route.query.index).ice,
-                quantity: this.getData(this.$route.query.index).quantity,
+                sugar: '',
+                ice: '',
+                quantity: 1,
             },
         };
     },
+
     methods: {
+        initializeData() {
+
+            console.log(this.$route.query.index);
+
+            const index = this.$route.query.index; // 從路由中獲取 index
+            const drinkData = this.getData(index); // 通過 index 獲取數據
+            
+            console.log(drinkData);
+
+            if (drinkData) {
+                this.drinkName = drinkData.name;
+                this.drinkImage = this.getDrinkImage(drinkData.name);
+                this.orderDetails.sugar = drinkData.sugar;
+                this.orderDetails.ice = drinkData.ice;
+                this.orderDetails.quantity = drinkData.quantity;
+            } else {
+                console.error(`No data found for index ${index}`);
+            }
+        },
         getData(index) {
             // 從 orderService 取得訂單資料
             let orders = orderService.getOrders();
