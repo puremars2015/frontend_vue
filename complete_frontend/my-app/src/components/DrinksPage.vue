@@ -6,7 +6,7 @@
           <div class="menu-item" v-for="(drink, index) in drinks" :key="index">
             <span class="item-icon">{{ drink.icon }}</span>
             <span class="item-text">{{ drink.name }}</span>
-            <button class="order-button">訂購</button>
+            <button class="order-button" @click="orderDrink">訂購</button>
           </div>
         </div>
       </div>
@@ -41,6 +41,11 @@
           { icon: '🍶', name: '清酒風味飲' },
         ],
       };
+    },
+    methods: {
+      orderDrink() {
+        this.$router.push('/drink-detail');
+      },
     },
   };
   </script>

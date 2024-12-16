@@ -2,24 +2,18 @@
     <div class="body">
       <div class="confirm-container">
         <h1 class="confirm-title">確認訂單</h1>
-        <ul class="order-summary">
-          <li>
-            <strong>飲料名稱：</strong>{{ drinkName }}
-            <button class="edit-button" @click="editField('name')">編輯</button>
-          </li>
-          <li>
-            <strong>糖度：</strong>{{ sugar }}
-            <button class="edit-button" @click="editField('sugar')">編輯</button>
-          </li>
-          <li>
-            <strong>冰量：</strong>{{ ice }}
-            <button class="edit-button" @click="editField('ice')">編輯</button>
-          </li>
-          <li>
-            <strong>杯數：</strong>{{ quantity }}
-            <button class="edit-button" @click="editField('quantity')">編輯</button>
-          </li>
-        </ul>
+        <div class="order-summary">
+          <div class="order-item" v-for="(drink, index) in drinks" :key="index">
+            <h3>飲料 {{ index + 1 }}</h3>
+            <ul>
+              <li><strong>飲料名稱：</strong>{{ drink.name }}</li>
+              <li><strong>糖度：</strong>{{ drink.sugar }}</li>
+              <li><strong>冰量：</strong>{{ drink.ice }}</li>
+              <li><strong>杯數：</strong>{{ drink.quantity }}</li>
+            </ul>
+            <button class="edit-button" @click="editDrink(index)">編輯</button>
+          </div>
+        </div>
         <div class="buttons">
           <button class="confirm-button" @click="submitOrder">確認訂單</button>
         </div>
@@ -32,32 +26,37 @@
     name: 'ConfirmOrder',
     data() {
       return {
-        drinkName: this.$route.query.name || '未知飲料',
-        sugar: this.$route.query.sugar || '全糖',
-        ice: this.$route.query.ice || '正常冰',
-        quantity: this.$route.query.quantity || 1,
+        drinks: [
+            { name: '珍珠奶茶', sugar: '全糖', ice: '正常冰', quantity: 1 },
+            { name: '水果茶', sugar: '微糖', ice: '少冰', quantity: 2 },
+            { name: '拿鐵咖啡', sugar: '半糖', ice: '微冰', quantity: 1 },
+        ] || [], // 接收多筆飲料資料
       };
     },
     methods: {
-      editField(field) {
-        // 返回 OrderDetails 並傳入需要編輯的欄位
+      editDrink(index) {
+        // 返回 OrderDetails，傳遞選中的飲料資料
+        const drinkToEdit = this.drinks[index];
         this.$router.push({
           name: 'OrderDetails',
           query: {
-            name: this.drinkName,
-            sugar: field === 'sugar' ? this.sugar : this.$route.query.sugar,
-            ice: field === 'ice' ? this.ice : this.$route.query.ice,
-            quantity: field === 'quantity' ? this.quantity : this.$route.query.quantity,
-            editField: field, // 傳遞當前需要編輯的欄位
+            name: drinkToEdit.name,
+            sugar: drinkToEdit.sugar,
+            ice: drinkToEdit.ice,
+            quantity: drinkToEdit.quantity,
+            index, // 傳遞飲料索引
           },
         });
       },
       submitOrder() {
-        // 假設提交訂單成功後返回主頁
-        alert(
-          `訂單確認：\n飲料名稱：${this.drinkName}\n糖度：${this.sugar}\n冰量：${this.ice}\n杯數：${this.quantity}`
-        );
-        this.$router.push({ name: 'DrinkMenu' });
+        // 提交所有訂單
+        const orderSummary = this.drinks
+          .map(
+            (drink, index) =>
+              `飲料 ${index + 1}：${drink.name}\n糖度：${drink.sugar}\n冰量：${drink.ice}\n杯數：${drink.quantity}`
+          )
+          .join('\n\n');
+        alert(`訂單確認：\n\n${orderSummary}`);
       },
     },
   };
@@ -80,7 +79,7 @@
     border: 2px solid #4db6e5;
     border-radius: 10px;
     padding: 20px;
-    width: 400px;
+    width: 500px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
@@ -92,18 +91,32 @@
   }
   
   .order-summary {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-    text-align: left;
+    margin-bottom: 20px;
   }
   
-  .order-summary li {
+  .order-item {
+    background: #2a2a45;
+    border: 1px solid #4db6e5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .order-item h3 {
     margin-bottom: 10px;
+    font-size: 18px;
+    color: #4db6e5;
+  }
+  
+  .order-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .order-item li {
+    margin-bottom: 5px;
     font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
   
   .edit-button {

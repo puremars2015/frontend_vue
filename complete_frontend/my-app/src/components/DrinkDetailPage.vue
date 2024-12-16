@@ -40,7 +40,7 @@
               />
             </div>
   
-            <button type="submit" class="submit-button">下一步</button>
+            <button type="submit" class="submit-button">加入訂單</button>
           </form>
         </div>
       </div>
@@ -88,6 +88,107 @@
   </script>
   
   <style scoped>
-  /* 保持原有樣式 */
+ .body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #2d2d4a);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.details-container {
+  display: flex;
+  background: #1a1a2e;
+  border: 2px solid #4db6e5;
+  border-radius: 10px;
+  padding: 20px;
+  width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.drink-image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.drink-image {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-section {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #4db6e5;
+  border-bottom: 2px solid #4db6e5;
+  padding-bottom: 10px;
+}
+
+.drink-name {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #4db6e5;
+  border-radius: 5px;
+  background: #2a2a45;
+  color: #fff;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.submit-button {
+  background: #4db6e5;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background: #62c9f9;
+  color: #1a1a2e;
+}
   </style>
   
