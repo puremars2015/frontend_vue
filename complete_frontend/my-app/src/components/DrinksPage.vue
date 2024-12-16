@@ -15,7 +15,7 @@
   
   <script>
   export default {
-    name: 'DrinkMenu',
+    name: 'DrinkPage',
     data() {
       return {
         drinks: [
@@ -62,7 +62,7 @@
     border: 2px solid #4db6e5;
     border-radius: 10px;
     padding: 20px;
-    width: 800px;
+    width: 900px; /* 增加寬度以適應 5x4 格式 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
@@ -77,8 +77,8 @@
   
   .drink-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr); /* 5 列 */
+    gap: 20px; /* 增加間距 */
   }
   
   .menu-item {

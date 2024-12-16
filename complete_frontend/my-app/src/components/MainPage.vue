@@ -1,15 +1,15 @@
 <template>
     <div class="body">
         <div class="list-container">
-    <h1 class="list-title">科技風清單列表</h1>
+    <h1 class="list-title">夢想飲料POS系統</h1>
     <ul class="custom-list">
-      <li class="list-item">
+      <li class="list-item" @click="openMenu()">
         <span class="item-icon">💻</span>
-        <span class="item-text">開發新功能</span>
+        <span class="item-text">進入點單系統</span>
       </li>
       <li class="list-item">
         <span class="item-icon">🔧</span>
-        <span class="item-text">修復已知問題</span>
+        <span class="item-text">錯誤回報</span>
       </li>
       <li class="list-item">
         <span class="item-icon">📊</span>
@@ -27,6 +27,11 @@
 <script>
 export default {
   name: 'MainPAge',
+  methods: {
+    openMenu() {
+      this.$router.push('/drinks-page');
+    }
+  }
 }
 </script>
 
