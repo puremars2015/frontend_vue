@@ -42,82 +42,81 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { orderService } from '@/service/orderService';
-import { onMounted } from 'vue';
 
-export default {
-    setup() {
-      onMounted(()=>{
-        this.initializeData();
-      });
-    },
-    name: 'DrinkDetailEditPage',
-    data() {
-        return {
-            drinkName: '',
-            drinkImage: '',
-            orderDetails: {
-                sugar: '',
-                ice: '',
-                quantity: 1,
-            },
-        };
-    },
+// 路由 & 導航
+const route = useRoute();
+const router = useRouter();
 
-    methods: {
-        initializeData() {
+// 響應式變數
+const drinkName = ref('');
+const drinkImage = ref('');
+const orderDetails = ref({
+  sugar: '',
+  ice: '',
+  quantity: 1,
+});
 
-            console.log(this.$route.query.index);
+// 方法
+const initializeData = () => {
+  console.log(route.query.index);
 
-            const index = this.$route.query.index; // 從路由中獲取 index
-            const drinkData = this.getData(index); // 通過 index 獲取數據
-            
-            console.log(drinkData);
+  const index = route.query.index; // 從路由中獲取 index
+  const drinkData = getData(index); // 通過 index 獲取數據
 
-            if (drinkData) {
-                this.drinkName = drinkData.name;
-                this.drinkImage = this.getDrinkImage(drinkData.name);
-                this.orderDetails.sugar = drinkData.sugar;
-                this.orderDetails.ice = drinkData.ice;
-                this.orderDetails.quantity = drinkData.quantity;
-            } else {
-                console.error(`No data found for index ${index}`);
-            }
-        },
-        getData(index) {
-            // 從 orderService 取得訂單資料
-            let orders = orderService.getOrders();
-            console.log(orders[index]);
-            return orders[index];
-        },
-        getDrinkImage(drinkName) {
-            const images = {
-                '珍珠奶茶': 'https://example.com/pearl_milk_tea.jpg',
-                '水果茶': 'https://example.com/fruit_tea.jpg',
-                '拿鐵咖啡': 'https://example.com/latte.jpg',
-                '氣泡飲': 'https://example.com/soda.jpg',
-            };
-            return images[drinkName] || 'https://example.com/default_drink.jpg';
-        },
-        goToConfirmOrder() {
-            this.saveOrder();
+  console.log(drinkData);
 
-            // 回到DrinksPage
-            this.$router.push('/drinks-page');
-        },
-        saveOrder() {
-            orderService.saveOrder(
-                {
-                    name: this.drinkName,
-                    sugar: this.orderDetails.sugar,
-                    ice: this.orderDetails.ice,
-                    quantity: this.orderDetails.quantity
-                }
-            );
-        }
-    },
+  if (drinkData) {
+    drinkName.value = drinkData.name;
+    drinkImage.value = getDrinkImage(drinkData.name);
+    orderDetails.value = {
+      sugar: drinkData.sugar,
+      ice: drinkData.ice,
+      quantity: drinkData.quantity,
+    };
+  } else {
+    console.error(`No data found for index ${index}`);
+  }
 };
+
+const getData = (index) => {
+  const orders = orderService.getOrders();
+  console.log(orders[index]);
+  return orders[index];
+};
+
+const getDrinkImage = (drinkName) => {
+  const images = {
+    '珍珠奶茶': 'https://example.com/pearl_milk_tea.jpg',
+    '水果茶': 'https://example.com/fruit_tea.jpg',
+    '拿鐵咖啡': 'https://example.com/latte.jpg',
+    '氣泡飲': 'https://example.com/soda.jpg',
+  };
+  return images[drinkName] || 'https://example.com/default_drink.jpg';
+};
+
+const goToConfirmOrder = () => {
+    updateOrder();
+  router.push('/drinks-page'); // 回到 DrinksPage
+};
+
+const updateOrder = () => {
+  orderService.updateOrder({
+    id: Number(route.query.index),
+    name: drinkName.value,
+    sugar: orderDetails.value.sugar,
+    ice: orderDetails.value.ice,
+    quantity: orderDetails.value.quantity,
+  });
+};
+
+// 掛載時執行初始化邏輯
+onMounted(() => {
+  initializeData();
+});
 </script>
 <style scoped>
 .body {
